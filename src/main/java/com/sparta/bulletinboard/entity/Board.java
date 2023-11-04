@@ -2,6 +2,7 @@ package com.sparta.bulletinboard.entity;
 
 
 import com.sparta.bulletinboard.dto.BoardRequestDto;
+import com.sparta.bulletinboard.dto.BoardResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,4 +22,10 @@ public class Board {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }
+
+    public void modify(BoardRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.sparta.bulletinboard.entity;
+package com.sparta.todolist.entity;
 
 
 import lombok.Getter;

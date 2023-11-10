@@ -1,11 +1,11 @@
-package com.sparta.bulletinboard.dto;
+package com.sparta.todolist.dto;
 
 import lombok.Getter;
 
 @Getter
-public class BoardRequestDto {
+public class TodoListRequestDto {
     private String userId;
-    private int password;
+    private String password;
     private String title;
     private String content;
 }

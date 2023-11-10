@@ -1,10 +1,10 @@
-package com.sparta.bulletinboard;
+package com.sparta.todolist;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BulletinboardApplicationTests {
+class TodoListApplicationTests {
 
     @Test
     void contextLoads() {

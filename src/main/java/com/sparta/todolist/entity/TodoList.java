@@ -2,6 +2,7 @@ package com.sparta.todolist.entity;
 
 
 import com.sparta.todolist.dto.TodoListRequestDto;
+import com.sparta.todolist.dto.TodoListResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

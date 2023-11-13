@@ -14,8 +14,8 @@ public class TodoListController {
 
 
     private final TodoListService todoListService;
-    public TodoListController(JdbcTemplate jdbcTemplate){
-        this.todoListService = new TodoListService(jdbcTemplate);
+    public TodoListController(TodoListService todoListService){
+        this.todoListService = todoListService;
 
     }
 

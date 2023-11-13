@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,12 +18,12 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 public class TodoListService {
 
     private final TodoListRepository todoListRepository;
-
-    public TodoListService(JdbcTemplate jdbcTemplate){
-        this.todoListRepository = new TodoListRepository(jdbcTemplate);
+    public TodoListService(TodoListRepository todoListRepository){
+        this.todoListRepository = todoListRepository;
     }
 
     public TodoListResponseDto createTodoList(TodoListRequestDto requestDto) {

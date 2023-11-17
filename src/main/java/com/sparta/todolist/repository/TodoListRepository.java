@@ -3,12 +3,14 @@ package com.sparta.todolist.repository;
 import com.sparta.todolist.dto.TodoListRequestDto;
 import com.sparta.todolist.dto.TodoListResponseDto;
 import com.sparta.todolist.entity.TodoList;
+import jakarta.persistence.EntityManager;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,7 +33,7 @@ public class TodoListRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();// 기본 키를 반환받기 위한 객체
 
         String sql = "INSERT INTO todolist (title, content, userId, password) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update( con -> {
+        jdbcTemplate.update(con -> {
                     PreparedStatement preparedStatement = con.prepareStatement(sql,
                             Statement.RETURN_GENERATED_KEYS);
 
@@ -64,7 +66,7 @@ public class TodoListRepository {
                 String date = rs.getString("date");
                 String userId = rs.getString("userId");
                 String password = rs.getString("password");
-                return new TodoListResponseDto(id, title, content,userId,date,password);
+                return new TodoListResponseDto(id, title, content, userId, date, password);
             }
         });
     }
@@ -74,7 +76,7 @@ public class TodoListRepository {
         LocalDateTime currentDate = LocalDateTime.now();
         todoList.setDate(String.valueOf(currentDate));
         String sql = "UPDATE todolist SET title = ?, content = ?, date =? WHERE id = ?";
-        jdbcTemplate.update(sql, requestDto.getTitle(), requestDto.getContent(),currentDate, id);
+        jdbcTemplate.update(sql, requestDto.getTitle(), requestDto.getContent(), currentDate, id);
 
     }
 
@@ -100,6 +102,20 @@ public class TodoListRepository {
         }, id);
     }
 
+    @Transactional
+    public TodoList createTodoList(EntityManager em) {
+        TodoList todoList = em.find(TodoList.class, 1);
+        todoList.setTitle("트렌젠셕 테스트");
+        todoList.setContent("@Transcational 테스트");
+        todoList.setDate("231117");
+        todoList.setUserId("Yeonwoo");
+        todoList.setPassword("1234");
+
+        System.out.println("create todolist메서드 종료");
+        return todoList;
+
+
+    }
 
 
 }

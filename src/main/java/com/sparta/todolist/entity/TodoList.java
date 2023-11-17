@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @Table(name="todolist")
 @NoArgsConstructor
-public class TodoList {
+public class TodoList extends com.sparta.memo.entity.Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,7 +39,7 @@ public class TodoList {
 
     }
 
-    public void update(TodoListRequestDto requestDto) {
+    public void update (TodoListRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
         this.userId = requestDto.getUserId();

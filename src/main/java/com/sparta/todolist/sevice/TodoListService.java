@@ -42,7 +42,7 @@ public class TodoListService {
 
     public List<TodoListResponseDto> getTodoList() {
         // DB 조회
-        return todoListRepository.findAll().stream().map(TodoListResponseDto::new).toList();
+        return todoListRepository.findAllByOrderByModifiedAtDesc().stream().map(TodoListResponseDto::new).toList();
     }
 
     @Transactional

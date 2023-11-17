@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @Table(name="todolist")
 @NoArgsConstructor
-public class TodoList extends com.sparta.memo.entity.Timestamped {
+public class TodoList extends com.sparta.todolist.entity.Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,8 +23,6 @@ public class TodoList extends com.sparta.memo.entity.Timestamped {
     private String title;
     @Column(name = "content", nullable = false, length = 500)
     private String content;
-    @Column(name = "date", nullable = false)
-    private String date;
     @Column(name = "userId", nullable = false)
     private String userId;  //Foreign key 설정
     @Column(name = "password", nullable = false)
@@ -35,8 +33,6 @@ public class TodoList extends com.sparta.memo.entity.Timestamped {
         this.content = requestDto.getContent();
         this.userId = requestDto.getUserId();
         this.password = requestDto.getPassword();
-        this.date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-
     }
 
     public void update (TodoListRequestDto requestDto) {
@@ -44,9 +40,6 @@ public class TodoList extends com.sparta.memo.entity.Timestamped {
         this.content = requestDto.getContent();
         this.userId = requestDto.getUserId();
         // this.password = requestDto.getPassword();
-        this.date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-
-
     }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,40 +42,35 @@ public class TodoListService {
 
     public List<TodoListResponseDto> getTodoList() {
         // DB 조회
-        return todoListRepository.findAll();
+        return todoListRepository.findAll().stream().map(TodoListResponseDto::new).toList();
     }
 
-
+    @Transactional
     public Long updateTodoList(Long id, TodoListRequestDto requestDto) {
         //해당 메모가 디비에 존재하는지 확인
-        TodoList todoList = todoListRepository.findById(id);
+        TodoList todoList=findTodo(id);
+        //메모 내용 수정 => update라는 메서드를 todoList클래스에 만들어서 사용
+        todoList.update(requestDto);
 
-        if (todoList != null) {
-            //메모 내용 수정
-            todoListRepository.update(id, requestDto);
-
-            return id;
-        } else {
-            throw new IllegalArgumentException("선택한 메모는 존재하지 않습니다.");
-        }
-
+        return id;
     }
 
     public Long deleteTodoList(Long id) {
         //해당 메모가 DB에 존재하는지 확인
-        TodoList todoList = todoListRepository.findById(id);
+        TodoList todoList = findTodo(id);
+        //메모 삭제
+        todoListRepository.delete(todoList);
 
-        if (todoList != null) {
-            todoListRepository.delete(id);
+        return id;
 
-            return id;
-        } else {
-            throw new IllegalArgumentException("선택한 메모는 존재하지 않습니다.");
-        }
     }
 
 
-
+    private TodoList findTodo(Long id){
+        return todoListRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("선택한 id는 존재하지 않습니다.")
+        );
+    }
 
 
 }

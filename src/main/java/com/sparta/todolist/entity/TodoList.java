@@ -2,7 +2,6 @@ package com.sparta.todolist.entity;
 
 
 import com.sparta.todolist.dto.TodoListRequestDto;
-import com.sparta.todolist.dto.TodoListResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,7 +39,7 @@ public class TodoList {
 
     }
 
-    public void modify(TodoListRequestDto requestDto) {
+    public void update(TodoListRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
         this.userId = requestDto.getUserId();
